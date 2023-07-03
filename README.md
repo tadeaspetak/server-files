@@ -10,7 +10,8 @@ Jak na `odesílatele` tak `adresáta`:
 
 1.  Nainstaluj [node.js](https://nodejs.org/en/download).
 2.  [Stáhni aplikaci](https://github.com/tadeaspetak/server-files/raw/main/server-files.zip) a rozbal na oba počítače.
-3.  V souboru `defaults.ts` nastav port (nejspíš `80`).
+3.  V adresáři aplikace zadej `npm i`, to lokálně nainstaluj knihovny (do adresáře `node_modules`).
+4.  V souboru `defaults.ts` nastav port (nejspíš `80`).
 
 Na `adresátovi` nastav v souboru `deafults.ts` v atributu `recipient`:
 
