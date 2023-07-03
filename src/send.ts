@@ -6,10 +6,10 @@ import fetch from "node-fetch";
 
 import { settings } from "./settings";
 
-const serverUrl = `${settings.host}:${settings.port}`;
-const sourceDir = path.isAbsolute(settings.source)
-  ? settings.source
-  : path.join(__dirname, settings.source);
+const serverUrl = `${settings.sender.to}:${settings.port}`;
+const sourceDir = path.isAbsolute(settings.sender.source)
+  ? settings.sender.source
+  : path.join(__dirname, "..", settings.sender.source);
 
 (async () => {
   try {

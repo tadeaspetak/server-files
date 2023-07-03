@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "send": "ts-node src/send.ts",
-    "server": "ts-node src/server.ts"
+    "send": "ts-node send.ts",
+    "recieve": "ts-node recieve.ts"
   },
   "keywords": [],
   "author": "",
