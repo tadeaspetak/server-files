@@ -1,0 +1,25 @@
+{
+  "name": "server-files",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "send": "ts-node src/send.ts",
+    "server": "ts-node src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/multer": "^1.4.7",
+    "@types/node": "^20.3.3",
+    "@types/node-fetch": "^2.6.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "form-data": "^4.0.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}
