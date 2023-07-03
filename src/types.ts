@@ -1,6 +1,6 @@
 export type Settings = {
-  port: string;
   recipient: {
+    port: string;
     storage: string;
   };
   sender: {

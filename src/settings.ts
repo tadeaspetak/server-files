@@ -6,8 +6,8 @@ import { Settings } from "./types";
 const parsed = minimist(process.argv.slice(2));
 
 export const settings: Settings = {
-  port: parsed.port ?? defaults.port,
   recipient: {
+    port: parsed.port ?? defaults.recipient.port,
     storage: parsed.storage ?? defaults.recipient.storage,
   },
   sender: {

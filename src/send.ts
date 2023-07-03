@@ -6,7 +6,7 @@ import fetch from "node-fetch";
 
 import { settings } from "./settings";
 
-const serverUrl = `${settings.sender.to}:${settings.port}`;
+const serverUrl = `${settings.sender.to}`;
 const sourceDir = path.isAbsolute(settings.sender.source)
   ? settings.sender.source
   : path.join(__dirname, "..", settings.sender.source);

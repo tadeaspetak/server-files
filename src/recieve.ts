@@ -46,6 +46,6 @@ app.post("/", upload.array("files"), (req, res) => {
   console.log("... done!");
 });
 
-app.listen(settings.port, () => {
-  console.log(`Server listening on port ${settings.port}.`);
+app.listen(settings.recipient.port, () => {
+  console.log(`Server listening on port ${settings.recipient.port}.`);
 });
