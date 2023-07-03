@@ -1,8 +1,8 @@
 # Vymena souboru mezi pocitaci
 
-Funguje to jednoduše. Na `adresátovi` aplikace na daném portu rozběhne node.js server, který čeká na příchozí soubory. `Odesílatel` odesílá soubory na danou adresu, kde čeká, že je `adresát` zpracuje a odešle potvrzení.
+Funguje to jednoduše. Na `adresátovi` tahle aplikace roběhne na daném portu node.js server, který čeká na příchozí soubory. `Odesílatel` odesílá soubory na danou adresu, kde čeká, že je `adresát` zpracuje a odešle potvrzení.
 
-Lze samozřejně otestovat je jednom počítači, tak jsem to vyvíjel.
+Lze samozřejně otestovat na jednom počítači, tak jsem to vyvíjel.
 
 ## Příprava
 
