@@ -18,7 +18,7 @@ Na `adresátovi` nastav v souboru `deafults.ts` v atributu `recipient`:
 
 Na `odesílateli` nastav v souboru `defaults.ts` v atributu `sender`:
 
-1. `source` je zdrojový adresář. Absolutní cesty jsou absolutní, relativní jsou relativní vůči adresáři aplikace. Momentálně to čte jen soubory přímo v danym adresáři, nic hlubšího.
+1. `source` je zdrojový adresář. Absolutní cesty jsou absolutní, relativní jsou relativní vůči adresáři aplikace. Momentálně to čte jen soubory přímo v daném adresáři, nic hlubšího. Až budeme vědět, jak by to přesně mělo fungovat, snadno upravíme.
 2. `to` je adresa adresáta včetně `http` či `https`. Testuješ-li lokálně, bude to prostě `http://localhost`.
 
 ## Pošta chodí 🤞
