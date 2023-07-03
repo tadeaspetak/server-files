@@ -1,12 +1,12 @@
 import { Settings } from "./src/types";
 
 export const defaults: Settings = {
-  port: "80",
+  port: "81",
   recipient: {
-    storage: "./storage",
+    storage: "./files/storage",
   },
   sender: {
-    source: "./source",
-    to: "http://localhost:80",
+    source: "./files/source",
+    to: "http://localhost",
   },
 };

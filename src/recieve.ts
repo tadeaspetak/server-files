@@ -15,7 +15,7 @@ const ensureDir = (dir: string) => {
 const destinationBase = ensureDir(
   path.isAbsolute(settings.recipient.storage)
     ? settings.recipient.storage
-    : path.join(__dirname, settings.recipient.storage)
+    : path.join(__dirname, "..", settings.recipient.storage)
 );
 
 const getDestinationFolder = (req: express.Request) =>
