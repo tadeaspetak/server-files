@@ -4,7 +4,7 @@ export const defaults: Settings = {
   recipient: {
     port: 80,
     storage: "./files/storage",
-    ip: "127.0.0.1",
+    ip: "0.0.0.0",
   },
   sender: {
     source: "./files/source",
