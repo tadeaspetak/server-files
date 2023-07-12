@@ -1,4 +1,4 @@
-# Vymena souboru mezi pocitaci
+# Výměna souborů mezi počítači
 
 Funguje to jednoduše. Na `adresátovi` tahle aplikace roběhne na daném portu node.js server, který čeká na příchozí soubory. `Odesílatel` odesílá soubory na danou adresu, kde čeká, že je `adresát` zpracuje a odešle potvrzení.
 
@@ -26,7 +26,7 @@ Na `odesílateli` nastav v souboru `defaults.ts` v atributu `sender`:
 
 ```bash
 # nastartuj adresáta
-npm run recieve
+npm run receive
 
 # odešli soubory
 npm run send
