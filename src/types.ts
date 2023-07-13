@@ -1,10 +1,17 @@
+export interface Source {
+  root: string;
+  folders: string[];
+}
+
 export type Settings = {
   recipient: {
     port: number;
-    storage: string;
+    source: Source;
+    destination: string;
   };
   sender: {
-    source: string;
+    source: Source;
+    destination: string;
     to: string;
   };
 };
