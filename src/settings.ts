@@ -7,7 +7,6 @@ const parsed = minimist(process.argv.slice(2));
 
 export const settings: Settings = {
   recipient: {
-    ip: parsed.ip ?? defaults.recipient.ip,
     port: parsed.port?.toNumber() ?? defaults.recipient.port,
     storage: parsed.storage ?? defaults.recipient.storage,
   },
