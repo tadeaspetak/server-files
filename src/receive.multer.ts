@@ -1,8 +1,8 @@
 import path from "node:path";
 import multer from "multer";
 
-import { settings } from "../settings";
-import { decodeFilePath, ensureDir } from "../utils";
+import { settings } from "./settings";
+import { decodeFilePath, ensureDir } from "./utils";
 
 export const destination = ensureDir(
   path.isAbsolute(settings.recipient.destination)

@@ -5,9 +5,9 @@ import multer from "multer";
 
 import AdmZip from "adm-zip";
 
-import { settings } from "../settings";
-import { getSourceRoot, log, walk } from "../utils";
-import { destination, upload } from "./multer";
+import { settings } from "./settings";
+import { getSourceRoot, log, walk } from "./utils";
+import { destination, upload } from "./receive.multer";
 
 const sourceRoot = getSourceRoot(settings.recipient.source);
 const sourcePaths = settings.recipient.source.folders.map((folder) =>
@@ -52,9 +52,9 @@ app.get("/download", checkAuth, (req, res) => {
   const zip = new AdmZip();
   sourcePaths
     .flatMap((source) => walk(source, sourceRoot))
-    .forEach((fileInfo) =>
-      zip.addLocalFile(fileInfo.absolute, fileInfo.relative)
-    );
+    .forEach((fileInfo) => {
+      zip.addLocalFile(fileInfo.absolute, path.dirname(fileInfo.relative));
+    });
   res.writeHead(200, {
     "Content-Disposition": `attachment; filename="uploads.zip"`,
     "Content-Type": "application/zip",
