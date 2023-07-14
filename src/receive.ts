@@ -69,6 +69,7 @@ app.get("/download-delete", checkAuth, (req, res) => {
     .forEach((fileInfo) => fs.unlinkSync(fileInfo.absolute));
   log("Deleted files on the server.", true);
   res.send({ message: `Deleted files.` });
+  process.exit();
 });
 
 app.listen(settings.recipient.port, () => {

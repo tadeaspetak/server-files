@@ -23,8 +23,8 @@ const send = async () => {
   const fileInfos = sourcePaths.flatMap((source) => walk(source, sourceRoot));
 
   if (fileInfos.length === 0) {
-    log("No files found, exiting.");
-    process.exit();
+    log("No files on the client.");
+    return;
   }
 
   // attach files to the form data, encoding their relative paths in the `filename`
