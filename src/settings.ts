@@ -1,10 +1,7 @@
-import minimist from "minimist";
-
 import { defaults } from "../defaults";
 import { Settings } from "./types";
 
-const parsed = minimist(process.argv.slice(2));
-
+// const parsed = minimist(process.argv.slice(2));
 // export const settings: Settings = {
 //   recipient: {
 //     port: parsed.port?.toNumber() ?? defaults.recipient.port,

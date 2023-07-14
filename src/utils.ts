@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { Source } from "./types";
 
-interface FileInfo {
+export interface FileInfo {
   absolute: string;
   name: string;
   relative: string;
@@ -40,7 +40,7 @@ export const walk = function (directory: string, root: string) {
  * Get source root directory.
  */
 
-export const getRoot = (source: Source) =>
+export const getSourceRoot = (source: Source) =>
   path.isAbsolute(source.root)
     ? source.root
     : path.join(__dirname, "..", source.root);
@@ -54,6 +54,13 @@ export const ensureDir = (dir: string) => {
     fs.mkdirSync(dir, { recursive: true });
   }
   return dir;
+};
+
+export const log = (value: string, end = false) => {
+  console.log(value);
+  if (end) {
+    console.log("------");
+  }
 };
 
 const FILE_PATH_REPLACEMENT = "#-#";
