@@ -4,6 +4,7 @@ export interface Source {
 }
 
 export type Settings = {
+  secret: string;
   recipient: {
     port: number;
     source: Source;

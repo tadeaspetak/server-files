@@ -6,7 +6,7 @@ import multer from "multer";
 import AdmZip from "adm-zip";
 
 import { settings } from "./settings";
-import { ensureDir, getRoot, walk } from "./utils";
+import { decodeFilePath, ensureDir, getRoot, walk } from "./utils";
 
 const root = getRoot(settings.recipient.source);
 const sources = settings.recipient.source.folders.map((folder) =>
@@ -21,17 +21,12 @@ const destination = ensureDir(
 );
 
 const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    const relative = req.body[file.originalname]; // file paths are appended in `req.body[$fileName]`
-    callback(
-      null,
-      ensureDir(
-        relative ? path.join(destination, path.dirname(relative)) : destination
-      )
-    );
+  destination: (_, file, callback) => {
+    const dir = path.dirname(decodeFilePath(file.originalname));
+    callback(null, ensureDir(path.join(destination, dir)));
   },
   filename: (_, file, callback) => {
-    callback(null, file.originalname);
+    callback(null, path.basename(decodeFilePath(file.originalname)));
   },
 });
 const upload = multer({ storage });
@@ -40,18 +35,30 @@ const upload = multer({ storage });
 const app = express();
 app.use(express.json());
 
+const checkAuth = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  if (req.headers["authorization"] === settings.secret) {
+    next();
+  } else {
+    res.status(403).send({ message: "Incorrect authentication." });
+  }
+};
+
 app.get("/", (req, res) => {
   res.send("Running!");
 });
 
-app.post("/", upload.array("files"), (req, res) => {
+app.post("/", checkAuth, upload.array("files"), (req, res) => {
   console.log(`Saving files to ${destination}...`);
   res.send({ message: `Saved files to ${destination}!` });
   console.log("... done!");
   console.log("-----");
 });
 
-app.get("/download", (req, res) => {
+app.get("/download", checkAuth, (req, res) => {
   console.log("Zipping files...");
   const zip = new AdmZip();
   sources
@@ -68,7 +75,7 @@ app.get("/download", (req, res) => {
   console.log("-----");
 });
 
-app.get("/download-delete", (req, res) => {
+app.get("/download-delete", checkAuth, (req, res) => {
   sources
     .flatMap((source) => walk(source, root))
     .forEach((fileInfo) => fs.unlinkSync(fileInfo.absolute));

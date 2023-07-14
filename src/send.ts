@@ -7,7 +7,7 @@ import FormData from "form-data";
 import fetch from "node-fetch";
 
 import { settings } from "./settings";
-import { getRoot, walk } from "./utils";
+import { encodeFilePath, getRoot, walk } from "./utils";
 
 const serverUrl = `${settings.sender.to}`;
 
@@ -15,23 +15,36 @@ const { source } = settings.sender;
 const root = getRoot(source);
 const sources = source.folders.map((folder) => path.join(source.root, folder));
 
+const headers = { Authorization: settings.secret };
+
 (async () => {
   try {
     const fileInfos = sources.flatMap((source) => walk(source, root));
+    if (fileInfos.length === 0) {
+      console.log("No files found, exiting.");
+      process.exit();
+    }
 
     // attach files to the form data
     const form = new FormData();
     for (const fileInfo of fileInfos) {
-      form.append(fileInfo.name, fileInfo.relative); // keep the relative paths first so it's available in the `body` on the server
       form.append("files", fs.readFileSync(fileInfo.absolute), {
-        filepath: fileInfo.name,
+        filename: encodeFilePath(fileInfo.relative),
       });
     }
 
     // send it off
     console.log("Uploading files...");
-    const res = await fetch(serverUrl, { method: "POST", body: form });
+    const res = await fetch(serverUrl, {
+      method: "POST",
+      body: form,
+      headers,
+    });
     console.log(`Response from the server: '${(await res.json()).message}'`);
+
+    if (!res.ok) {
+      process.exit();
+    }
 
     for (const fileInfo of fileInfos) {
       fs.unlinkSync(fileInfo.absolute);
@@ -41,19 +54,25 @@ const sources = source.folders.map((folder) => path.join(source.root, folder));
 
     // request data
     console.log("Requesting data from the server now...");
-    const uploaded = await fetch(`${serverUrl}/download`, { method: "GET" });
+    const resDownload = await fetch(`${serverUrl}/download`, {
+      method: "GET",
+      headers,
+    });
 
-    const file = new AdmZip(await uploaded.buffer());
+    const file = new AdmZip(await resDownload.buffer());
     file.extractAllTo(settings.sender.destination);
     console.log(`All files extracted to ${settings.sender.destination}.`);
     console.log("-----");
 
     // signal deletion
     console.log("Signalling deletion is ok to the server.");
-    const resDel = await fetch(`${serverUrl}/download-delete`, {
+    const resDelete = await fetch(`${serverUrl}/download-delete`, {
       method: "GET",
+      headers,
     });
-    console.log(`Response from the server: '${(await resDel.json()).message}'`);
+    console.log(
+      `Response from the server: '${(await resDelete.json()).message}'`
+    );
   } catch (e) {
     console.error(e);
   }

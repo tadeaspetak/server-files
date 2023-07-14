@@ -55,3 +55,9 @@ export const ensureDir = (dir: string) => {
   }
   return dir;
 };
+
+const FILE_PATH_REPLACEMENT = "#-#";
+export const encodeFilePath = (filePath: string) =>
+  filePath.replaceAll(path.sep, FILE_PATH_REPLACEMENT);
+export const decodeFilePath = (filePath: string) =>
+  filePath.replaceAll(FILE_PATH_REPLACEMENT, path.sep);

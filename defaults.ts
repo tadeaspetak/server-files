@@ -1,6 +1,7 @@
 import { Settings } from "./src/types";
 
 export const defaults: Settings = {
+  secret: "something-s3cr3t",
   recipient: {
     port: 80,
     source: {
